@@ -5,6 +5,8 @@ var ReactDOM = require('react-dom');
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 // EFFECTIVLY EQUAL => var Route = require('react-router').Route
 
+var TodoApp = require('TodoApp');
+
 // load foundation
 $(document).foundation();
 
@@ -14,6 +16,6 @@ require('style!css!sass!applicationStyles');  // for scss
 
 // router
 ReactDOM.render(
-  <p>React template 3</p>,
+  <TodoApp/>,
   document.getElementById('app')
 );
