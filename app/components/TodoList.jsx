@@ -3,10 +3,11 @@ var {connect} = require('react-redux'); // for children to specify which data in
 var PropTypes = React.PropTypes;
 // var Todo = require('Todo');
 import Todo from 'Todo';
+var TodoAPI = require('TodoAPI');
 
 export var TodoList = React.createClass({
   render: function() {
-    var {todos} = this.props;
+    var {todos, showCompleted, searchText} = this.props;
 
     var renderTodos = () => {
       if(todos.length === 0){
@@ -14,7 +15,7 @@ export var TodoList = React.createClass({
           <p className="container__message">Nothing To Do</p>
         );
       }
-      return todos.map((todo) => {
+      return TodoAPI.filterTodos(todos, showCompleted, searchText).map((todo) => {
         return (
           <Todo key={todo.id} {...todo} />
         );
@@ -33,8 +34,6 @@ export var TodoList = React.createClass({
 // connect() is called right after the component is created
 export default connect(
   (state) => {
-    return {
-      todos: state.todos  // pass todos in state to todos in props
-    };
+    return state;
   }
 )(TodoList);
