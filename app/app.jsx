@@ -7,13 +7,19 @@ var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 // EFFECTIVLY EQUAL => var Route = require('react-router').Route
 
 var TodoApp = require('TodoApp');
+var TodoAPI = require('TodoAPI');
 
 var actions = require('actions');
 var store = require('configureStore').configure();
 
 store.subscribe(() => {
-  console.log('NEW state', store.getState());
+  var state = store.getState();
+  console.log('NEW state', state);
+  TodoAPI.setTodos(state.todos);
 });
+
+var initialTodos = TodoAPI.getTodos();
+store.dispatch(actions.addTodos(initialTodos));git
 
 store.dispatch(actions.addTodo('Clean the yard'));
 store.dispatch(actions.setSearchText('yard'));
