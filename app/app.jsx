@@ -2,6 +2,7 @@
 // in index.html (exist still in index_old.html)
 var React = require('react');
 var ReactDOM = require('react-dom');
+var {Provider} = require('react-redux'); // provides store to its children
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 // EFFECTIVLY EQUAL => var Route = require('react-router').Route
 
@@ -27,6 +28,8 @@ require('style!css!sass!applicationStyles');  // for scss
 
 // router
 ReactDOM.render(
-  <TodoApp/>,
+  <Provider store={store}>
+    <TodoApp/>
+  </Provider>,
   document.getElementById('app')
 );

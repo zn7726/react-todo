@@ -1,11 +1,16 @@
 var React = require('react');
+var {connect} = require('react-redux');
 var moment = require('moment');
 var PropTypes = React.PropTypes;
+var actions = require('actions');
 
-var Todo = React.createClass({
+// need to export both the vanila verion of Todo and the Connected version of
+// Todo. We need the vanila version for testing purpose only
+
+export var Todo = React.createClass({
 
   render: function() {
-    var {id, text, completed, createdAt, completedAt} = this.props;
+    var {id, text, completed, createdAt, completedAt, dispatch} = this.props;
     var todoClassName = completed ? 'todo todo-completed' : 'todo';
 
     var renderDate = ()=>{
@@ -21,7 +26,8 @@ var Todo = React.createClass({
     return (
       <div className={todoClassName}
            onClick={ () => {
-              this.props.onToggle(id);
+             // not calling callback being passed from parent
+              dispatch(actions.toggleTodo(id));
             }}
       >
         <div>
@@ -37,4 +43,5 @@ var Todo = React.createClass({
   }
 
 });
-module.exports = Todo;
+
+export default connect()(Todo);
